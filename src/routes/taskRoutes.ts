@@ -4,9 +4,9 @@ import { authenticate } from '../middleware/authMiddleware';
 
 const router = express.Router();
 
-router.post('/tasks', authenticate, createTask);
-router.get('/tasks', authenticate, getTasks);
-router.patch('/tasks/:id', authenticate, updateTask);
-router.delete('/tasks/:id', authenticate, deleteTask);
+router.post('/', authenticate, createTask);
+router.get('/', authenticate, getTasks);
+router.patch('/:id', authenticate, updateTask);
+router.delete('/:id', authenticate, deleteTask);
 
 export default router;
