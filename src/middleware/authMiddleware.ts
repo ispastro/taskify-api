@@ -1,3 +1,5 @@
+/// <reference path="../types/express.d.ts" />
+
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import prisma from '../config/database';
@@ -6,7 +8,9 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
   const token = req.header('Authorization')?.replace('Bearer ', '');
 
   if (!token) {
-    return res.status(401).json({ error: 'Authentication required' });
+    const error = new Error('Authentication required: No token provided');
+    console.error(`[${new Date().toISOString()}] ${error.message}`);
+    return res.status(401).json({ error: error.message });
   }
 
   try {
@@ -24,12 +28,16 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
     });
 
     if (!user) {
-      return res.status(401).json({ error: 'User not found' });
+      const error = new Error('User not found: Invalid user ID');
+      console.error(`[${new Date().toISOString()}] ${error.message}`);
+      return res.status(401).json({ error: error.message });
     }
 
     req.user = user;
     next();
   } catch (error) {
-    res.status(401).json({ error: 'Invalid token' });
+    const err = error instanceof Error ? error : new Error('Invalid token');
+    console.error(`[${new Date().toISOString()}] Authentication error: ${err.message}`, err.stack);
+    res.status(401).json({ error: 'Invalid token', details: err.message });
   }
 };

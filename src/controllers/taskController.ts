@@ -110,7 +110,8 @@ export const deleteTask = async (req: Request, res: Response) => {
     }
 
     await prisma.task.delete({ where: { id: Number(id) } });
-    res.status(204).send();
+
+    res.status(204).send({ message: 'Task deleted successfully' });
   } catch (error) {
     res.status(500).json({ error: 'Server error' });
   }
