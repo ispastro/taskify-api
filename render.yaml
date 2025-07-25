@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: taskify-api
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: DATABASE_URL
+        fromEnvVar: DATABASE_URL
+      - key: JWT_SECRET
+        fromEnvVar: JWT_SECRET
