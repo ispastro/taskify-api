@@ -11,4 +11,3 @@ router.post('/signup', authController_1.signup);
 router.post('/login', authController_1.login);
 router.get('/profile', authMiddleware_1.authenticate, authController_1.getProfile);
 exports.default = router;
-//# sourceMappingURL=authRoutes.js.map

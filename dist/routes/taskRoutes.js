@@ -12,4 +12,3 @@ router.get('/tasks', authMiddleware_1.authenticate, taskController_1.getTasks);
 router.patch('/tasks/:id', authMiddleware_1.authenticate, taskController_1.updateTask);
 router.delete('/tasks/:id', authMiddleware_1.authenticate, taskController_1.deleteTask);
 exports.default = router;
-//# sourceMappingURL=taskRoutes.js.map
